@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -13,4 +14,99 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Responsive Design */
+
+@media only screen and (max-width: 768px) {
+  /* For mobile devices */
+  .container {
+    width: 100%;
+    padding: 20px;
+  }
+  .header {
+    font-size: 24px;
+  }
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav li {
+    margin-bottom: 20px;
+  }
+  .nav a {
+    font-size: 18px;
+  }
+  .footer {
+    text-align: center;
+  }
+  .footer ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer li {
+    margin-bottom: 20px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  /* For smaller mobile devices */
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+  .header {
+    font-size: 18px;
+  }
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav li {
+    margin-bottom: 20px;
+  }
+  .nav a {
+    font-size: 16px;
+  }
+  .footer {
+    text-align: center;
+  }
+  .footer ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer li {
+    margin-bottom: 20px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  /* For desktop devices */
+  .container {
+    width: 80%;
+    padding: 40px;
+  }
+  .header {
+    font-size: 36px;
+  }
+  .nav {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .nav li {
+    margin-right: 20px;
+  }
+  .nav a {
+    font-size: 24px;
+  }
+  .footer {
+    text-align: left;
+  }
+  .footer ul {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .footer li {
+    margin-right: 20px;
+  }
 }
