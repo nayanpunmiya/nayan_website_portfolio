@@ -16,43 +16,49 @@ code {
     monospace;
 }
 
-/* Responsive Design */
-
-@media only screen and (max-width: 768px) {
-  /* For mobile devices */
-  .container {
-    width: 100%;
-    padding: 20px;
-  }
-  .header {
-    font-size: 24px;
-  }
-  .nav {
-    flex-direction: column;
-    align-items: center;
-  }
-  .nav li {
-    margin-bottom: 20px;
-  }
-  .nav a {
-    font-size: 18px;
-  }
-  .footer {
-    text-align: center;
-  }
-  .footer ul {
-    flex-direction: column;
-    align-items: center;
-  }
-  .footer li {
-    margin-bottom: 20px;
-  }
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-@media only screen and (max-width: 480px) {
-  /* For smaller mobile devices */
+.header {
+  font-size: 24px;
+  text-align: center;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav li {
+  margin-bottom: 20px;
+}
+
+.nav a {
+  font-size: 18px;
+}
+
+.footer {
+  text-align: center;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer li {
+  margin-bottom: 20px;
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
   .container {
-    width: 100%;
     padding: 10px;
   }
   .header {
@@ -63,50 +69,28 @@ code {
     align-items: center;
   }
   .nav li {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   .nav a {
     font-size: 16px;
   }
-  .footer {
-    text-align: center;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 5px;
   }
-  .footer ul {
+  .header {
+    font-size: 14px;
+  }
+  .nav {
     flex-direction: column;
     align-items: center;
   }
-  .footer li {
-    margin-bottom: 20px;
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-  /* For desktop devices */
-  .container {
-    width: 80%;
-    padding: 40px;
-  }
-  .header {
-    font-size: 36px;
-  }
-  .nav {
-    flex-direction: row;
-    justify-content: space-between;
-  }
   .nav li {
-    margin-right: 20px;
+    margin-bottom: 5px;
   }
   .nav a {
-    font-size: 24px;
-  }
-  .footer {
-    text-align: left;
-  }
-  .footer ul {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  .footer li {
-    margin-right: 20px;
+    font-size: 14px;
   }
 }
