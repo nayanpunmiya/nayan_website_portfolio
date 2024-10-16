@@ -1,8 +1,8 @@
+/* index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
 :root {
   --navbar-height: 4rem;
 }
@@ -23,13 +23,13 @@ body {
   overflow-x: hidden;
 }
 
-/* Mobile-first responsive design */
 .container {
   width: 100%;
   padding: 0 1rem;
   margin: 0 auto;
 }
 
+/* Mobile-first responsive design */
 @media (min-width: 640px) {
   .container {
     max-width: 640px;
@@ -51,6 +51,16 @@ body {
 /* Navigation styles */
 .nav-link {
   @apply flex items-center hover:text-yellow-300 transition-colors;
+}
+
+/* Mobile menu styles */
+.mobile-menu {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.mobile-menu.open {
+  transform: translateX(0);
 }
 
 /* Responsive typography */
@@ -88,5 +98,16 @@ img {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Additional responsive adjustments */
+@media (max-width: 768px) {
+  .nav-container {
+    padding-top: var(--navbar-height);
+  }
+  
+  .content-wrapper {
+    margin-top: var(--navbar-height);
   }
 }
