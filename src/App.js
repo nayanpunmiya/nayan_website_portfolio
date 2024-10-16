@@ -117,10 +117,12 @@ const Home = ({ darkMode }) => (
         <a href="https://docs.google.com/document/d/1uV_ryzX6iFNzNmzoLJAKX8ryRTguhr2d/edit?usp=drive_link&ouid=104814200948522809032&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Download Resume</a>
       </motion.button>
     </div>
+
+    {/* Updated image layout */}
     <div className="flex flex-col md:flex-row justify-center items-center space-x-4">
       <motion.img 
         src="https://raw.githubusercontent.com/nayanpunmiya/nayanpunmiya/refs/heads/main/Make%20your%20README.png" 
-        alt="Left Image" 
+        alt="First Image" 
         className="w-full md:w-1/2 h-auto mb-4 md:mb-0" 
         initial={{ x: -100, opacity: 0, rotate: -10 }} 
         animate={{ x: 0, opacity: 1, rotate: 0 }} 
@@ -129,7 +131,7 @@ const Home = ({ darkMode }) => (
       />
       <motion.img 
         src="https://user-images.githubusercontent.com/55389276/140866485-8fb1c876-9a8f-4d6a-98dc-08c4981eaf70.gif" 
-        alt="Right Image" 
+        alt="Second Image" 
         className="w-full md:w-1/2 h-auto" 
         initial={{ x: 100, opacity: 0, rotate: 10 }} 
         animate={{ x: 0, opacity: 1, rotate: 0 }} 
@@ -139,6 +141,8 @@ const Home = ({ darkMode }) => (
     </div>
   </div>
 );
+
+
 
 // Education Component
 const Education = ({ darkMode }) => (
