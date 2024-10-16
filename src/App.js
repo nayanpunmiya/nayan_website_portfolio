@@ -1,99 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun, FaRocket, FaLightbulb, FaCode, FaBriefcase, FaNewspaper } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun, FaRocket, FaLightbulb, FaCode, FaBriefcase, FaNewspaper, FaBars } from 'react-icons/fa';
+import { useSpring, animated } from '@react-spring/web';
 
 // Navbar Component
-
-
 const Navbar = ({ darkMode, toggleDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <nav className={`fixed w-full z-50 ${darkMode ? 'bg-gradient-to-r from-purple-900 to-indigo-900' : 'bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500'} p-4`}>
-      <div className="flex items-center justify-between">
-        {/* Navbar brand or title */}
-        <div className="text-white text-2xl font-bold">
-          Portfolio
-        </div>
-
-        {/* Hamburger Menu Icon */}
-        <button
-          className="md:hidden text-white focus:outline-none"
+    <motion.nav 
+      className={`${darkMode ? 'bg-gradient-to-r from-purple-900 to-indigo-900' : 'bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500'} p-4 text-white fixed w-full z-50`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: 'spring', stiffness: 120 }}
+    >
+      <div className="max-w-6xl mx-auto flex justify-between items-center">
+        {/* Hamburger Menu Button (visible on mobile) */}
+        <button 
+          className="lg:hidden p-2"
           onClick={toggleMenu}
         >
-          {isOpen ? <FaTimes size={28} /> : <FaBars size={28} />}
+          <FaBars size={24} />
         </button>
 
-        {/* Full menu for larger screens */}
-        <ul className="hidden md:flex space-x-6 items-center">
+        {/* Desktop Menu */}
+        <ul className="hidden lg:flex justify-center items-center space-x-6">
           <NavItem to="/" icon={<FaRocket />}>Home</NavItem>
           <NavItem to="/education" icon={<FaLightbulb />}>Education</NavItem>
           <NavItem to="/skills" icon={<FaCode />}>Skills</NavItem>
           <NavItem to="/experience" icon={<FaBriefcase />}>Experience</NavItem>
           <NavItem to="/projects" icon={<FaRocket />}>Projects</NavItem>
           <NavItem to="/blog" icon={<FaNewspaper />}>Blog</NavItem>
-          <li>
-            <motion.button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-full hover:bg-opacity-50 bg-white bg-opacity-20 transition-colors"
-              whileHover={{ scale: 1.2, rotate: 180 }}
-              whileTap={{ scale: 0.8 }}
-            >
-              {darkMode ? <FaSun className="text-yellow-300" /> : <FaMoon className="text-purple-300" />}
-            </motion.button>
-          </li>
         </ul>
+
+        {/* Dark Mode Toggle */}
+        <motion.button 
+          onClick={toggleDarkMode} 
+          className="p-2 rounded-full hover:bg-opacity-50 bg-white bg-opacity-20 transition-colors"
+          whileHover={{ scale: 1.2, rotate: 180 }}
+          whileTap={{ scale: 0.8 }}
+        >
+          {darkMode ? <FaSun className="text-yellow-300" /> : <FaMoon className="text-purple-300" />}
+        </motion.button>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} mt-4`}>
-        <ul className="flex flex-col items-center space-y-4">
-          <NavItem to="/" icon={<FaRocket />} onClick={toggleMenu}>Home</NavItem>
-          <NavItem to="/education" icon={<FaLightbulb />} onClick={toggleMenu}>Education</NavItem>
-          <NavItem to="/skills" icon={<FaCode />} onClick={toggleMenu}>Skills</NavItem>
-          <NavItem to="/experience" icon={<FaBriefcase />} onClick={toggleMenu}>Experience</NavItem>
-          <NavItem to="/projects" icon={<FaRocket />} onClick={toggleMenu}>Projects</NavItem>
-          <NavItem to="/blog" icon={<FaNewspaper />} onClick={toggleMenu}>Blog</NavItem>
-          <li>
-            <motion.button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-full hover:bg-opacity-50 bg-white bg-opacity-20 transition-colors"
-              whileHover={{ scale: 1.2, rotate: 180 }}
-              whileTap={{ scale: 0.8 }}
-            >
-              {darkMode ? <FaSun className="text-yellow-300" /> : <FaMoon className="text-purple-300" />}
-            </motion.button>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.ul
+            className="lg:hidden flex flex-col items-center space-y-4 pt-4"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <NavItem to="/" icon={<FaRocket />} onClick={toggleMenu}>Home</NavItem>
+            <NavItem to="/education" icon={<FaLightbulb />} onClick={toggleMenu}>Education</NavItem>
+            <NavItem to="/skills" icon={<FaCode />} onClick={toggleMenu}>Skills</NavItem>
+            <NavItem to="/experience" icon={<FaBriefcase />} onClick={toggleMenu}>Experience</NavItem>
+            <NavItem to="/projects" icon={<FaRocket />} onClick={toggleMenu}>Projects</NavItem>
+            <NavItem to="/blog" icon={<FaNewspaper />} onClick={toggleMenu}>Blog</NavItem>
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 
-const NavItem = ({ to, icon, children, onClick }) => (
-  <li onClick={onClick}>
-    <Link to={to} className="flex items-center text-white hover:text-yellow-300 transition-colors">
-      <motion.span
-        className="mr-2"
-        whileHover={{ rotate: 360, scale: 1.2 }}
-        transition={{ duration: 0.3 }}
-      >
-        {icon}
-      </motion.span>
-      <motion.span
-        whileHover={{ scale: 1.1 }}
-        transition={{ duration: 0.2 }}
-      >
-        {children}
-      </motion.span>
-    </Link>
-  </li>
-);
+
+  
 
 
 
@@ -136,57 +116,64 @@ const SocialLink = ({ href, icon, color }) => (
 );
 
 // Home Component
-const Home = ({ darkMode }) => (
-  <div className={`min-h-screen pt-16 flex flex-col items-center justify-center ${darkMode ? 'bg-gradient-to-b from-gray-900 via-purple-900 to-violet-900' : 'bg-gradient-to-b from-blue-400 via-teal-400 to-green-400'}`}>
-    <div className="w-full text-center p-10">
-      <motion.h1 
-        className={`text-6xl font-bold mb-4 ${darkMode ? 'text-indigo-300' : 'text-white'}`}
-        initial={{ scale: 0.5, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        Welcome to Nayan Punamiya's Portfolio
-      </motion.h1>
-      <motion.p 
-        className="text-2xl mb-6 text-gray-300"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-      >
-        Full Stack Web Developer | Machine Learning Enthusiast
-      </motion.p>
-      <motion.button 
-        whileHover={{ scale: 1.1, boxShadow: "0px 0px 8px rgb(255,255,255)" }}
-        whileTap={{ scale: 0.9 }}
-        className={`px-8 py-3 rounded-full transition-colors text-lg font-semibold mb-8 ${darkMode ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : 'bg-white hover:bg-gray-100 text-indigo-600'}`}
-      >
-        <a href="https://docs.google.com/document/d/1uV_ryzX6iFNzNmzoLJAKX8ryRTguhr2d/edit?usp=drive_link&ouid=104814200948522809032&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Download Resume</a>
-      </motion.button>
-    </div>
+const Home = ({ darkMode }) => {
+  const springProps = useSpring({
+    from: { opacity: 0, transform: 'translateY(50px)' },
+    to: { opacity: 1, transform: 'translateY(0px)' },
+    config: { tension: 300, friction: 10 },
+  });
 
-    {/* Ensure proper flex layout */}
-    <div className="flex flex-col md:flex-row justify-center items-center w-full px-4 space-y-4 md:space-y-0 md:space-x-4">
-      <motion.img 
-        src="https://raw.githubusercontent.com/nayanpunmiya/nayanpunmiya/refs/heads/main/Make%20your%20README.png" 
-        alt="First Image" 
-        className="w-full md:w-1/2 h-auto" 
-        initial={{ x: -100, opacity: 0, rotate: -10 }} 
-        animate={{ x: 0, opacity: 1, rotate: 0 }} 
-        transition={{ duration: 1, ease: "easeOut" }} 
-        whileHover={{ scale: 1.1, rotate: -5 }}
-      />
-      <motion.img 
-        src="https://user-images.githubusercontent.com/55389276/140866485-8fb1c876-9a8f-4d6a-98dc-08c4981eaf70.gif" 
-        alt="Second Image" 
-        className="w-full md:w-1/2 h-auto" 
-        initial={{ x: 100, opacity: 0, rotate: 10 }} 
-        animate={{ x: 0, opacity: 1, rotate: 0 }} 
-        transition={{ duration: 1, ease: "easeOut" }} 
-        whileHover={{ scale: 1.1, rotate: 5 }}
-      />
+  return (
+    <div className={`min-h-screen flex flex-col items-center justify-start pt-24 ${darkMode ? 'bg-gradient-to-b from-gray-900 via-purple-900 to-violet-900' : 'bg-gradient-to-b from-blue-400 via-teal-400 to-green-400'}`}>
+      <animated.div style={springProps} className="w-full text-center p-4 md:p-10">
+        <motion.h1 
+          className={`text-3xl md:text-6xl font-bold mb-4 ${darkMode ? 'text-indigo-300' : 'text-white'}`}
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          Welcome to Nayan Punamiya's Portfolio
+        </motion.h1>
+        <motion.p 
+          className="text-xl md:text-2xl mb-6 text-gray-300"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+        >
+          Full Stack Web Developer | Machine Learning Enthusiast
+        </motion.p>
+        <motion.button 
+          whileHover={{ scale: 1.1, boxShadow: "0px 0px 8px rgb(255,255,255)" }}
+          whileTap={{ scale: 0.9 }}
+          className={`px-6 py-2 md:px-8 md:py-3 rounded-full transition-colors text-base md:text-lg font-semibold mb-8 ${darkMode ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : 'bg-white hover:bg-gray-100 text-indigo-600'}`}
+        >
+          <a href="https://docs.google.com/document/d/1uV_ryzX6iFNzNmzoLJAKX8ryRTguhr2d/edit?usp=drive_link&ouid=104814200948522809032&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Download Resume</a>
+        </motion.button>
+      </animated.div>
+
+      {/* Responsive Image Container */}
+      <div className="flex flex-col md:flex-row justify-center items-center w-full px-4 md:px-10 space-y-6 md:space-y-0 md:space-x-6 mb-10">
+        <motion.img 
+          src="https://raw.githubusercontent.com/nayanpunmiya/nayanpunmiya/refs/heads/main/Make%20your%20README.png" 
+          alt="Left Image" 
+          className="w-full md:w-96 h-auto rounded-lg shadow-lg" 
+          initial={{ x: -100, opacity: 0, rotate: -10 }} 
+          animate={{ x: 0, opacity: 1, rotate: 0 }} 
+          transition={{ duration: 1, ease: "easeOut" }} 
+          whileHover={{ scale: 1.05, rotate: -5 }}
+        />
+        <motion.img 
+          src="https://user-images.githubusercontent.com/55389276/140866485-8fb1c876-9a8f-4d6a-98dc-08c4981eaf70.gif" 
+          alt="Right Image" 
+          className="w-full md:w-96 h-auto rounded-lg shadow-lg" 
+          initial={{ x: 100, opacity: 0, rotate: 10 }} 
+          animate={{ x: 0, opacity: 1, rotate: 0 }} 
+          transition={{ duration: 1, ease: "easeOut" }} 
+          whileHover={{ scale: 1.05, rotate: 5 }}
+        />
+      </div>
     </div>
-  </div>
-);
+  );
 
 
 
