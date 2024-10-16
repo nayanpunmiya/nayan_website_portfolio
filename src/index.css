@@ -23,6 +23,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   height: calc(var(--vh, 1vh) * 100);
+  padding-top: var(--navbar-height); /* Ensure body content is pushed below the navbar */
 }
 
 /* Responsive container */
@@ -66,6 +67,12 @@ h1, h2, h3, p {
     max-width: 90%;
     height: auto;
   }
+}
+
+/* Ensure images scale properly */
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Improve navigation on small screens */
