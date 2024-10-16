@@ -5,7 +5,6 @@ import App from './App';
 
 // Add viewport resize listener for responsive adjustments
 const handleResize = () => {
-  // Set viewport height for mobile browsers
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 };
