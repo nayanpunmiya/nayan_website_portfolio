@@ -1,11 +1,7 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun, FaRocket, FaLightbulb, FaCode, FaBriefcase, FaNewspaper } from 'react-icons/fa';
-import { useSpring, animated, config } from '@react-spring/web';
-import Particles from 'react-tsparticles';
-import { loadFull } from "tsparticles";
-
 
 // Navbar Component
 const Navbar = ({ darkMode, toggleDarkMode }) => (
@@ -63,12 +59,12 @@ const Footer = ({ darkMode }) => (
       <SocialLink href="https://github.com/nayanpunmiya" icon={<FaGithub size={28} />} color="text-white hover:text-gray-400" />
       <SocialLink href="https://www.linkedin.com/in/nayanpunamiya" icon={<FaLinkedin size={28} />} color="text-white hover:text-blue-400" />
       <SocialLink
-  href="https://mail.google.com/mail/?view=cm&fs=1&to=punmiyanayan@gmail.com&su=Portfolio%20Contact"
-  icon={<FaEnvelope size={28} />}
-  color="text-white hover:text-yellow-300"
-  target="_blank" // Opens in a new tab
-  rel="noopener noreferrer" // Security measure for external links
-/>
+        href="https://mail.google.com/mail/?view=cm&fs=1&to=punmiyanayan@gmail.com&su=Portfolio%20Contact"
+        icon={<FaEnvelope size={28} />}
+        color="text-white hover:text-yellow-300"
+        target="_blank"
+        rel="noopener noreferrer"
+      />
     </div>
     <motion.p 
       className="text-sm"
@@ -94,64 +90,55 @@ const SocialLink = ({ href, icon, color }) => (
 );
 
 // Home Component
-const Home = ({ darkMode }) => {
-  const springProps = useSpring({
-    from: { opacity: 0, transform: 'translateY(50px)' },
-    to: { opacity: 1, transform: 'translateY(0px)' },
-    config: { tension: 300, friction: 10 },
-  });
-
-  return (
-    <div className={`min-h-screen flex flex-col items-center justify-center pt-24 ${darkMode ? 'bg-gradient-to-b from-gray-900 via-purple-900 to-violet-900' : 'bg-gradient-to-b from-blue-400 via-teal-400 to-green-400'}`}>
-      {/* Added pt-24 for extra space */}
-      <animated.div style={springProps} className="w-full text-center p-10">
-        <motion.h1 
-          className={`text-6xl font-bold mb-4 ${darkMode ? 'text-indigo-300' : 'text-white'}`}
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          Welcome to Nayan Punamiya's Portfolio
-        </motion.h1>
-        <motion.p 
-          className="text-2xl mb-6 text-gray-300"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-        >
-          Full Stack Web Developer | Machine Learning Enthusiast
-        </motion.p>
-        <motion.button 
-          whileHover={{ scale: 1.1, boxShadow: "0px 0px 8px rgb(255,255,255)" }}
-          whileTap={{ scale: 0.9 }}
-          className={`px-8 py-3 rounded-full transition-colors text-lg font-semibold mb-8 ${darkMode ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : 'bg-white hover:bg-gray-100 text-indigo-600'}`}
-        >
-          <a href="https://docs.google.com/document/d/1uV_ryzX6iFNzNmzoLJAKX8ryRTguhr2d/edit?usp=drive_link&ouid=104814200948522809032&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Download Resume</a>
-        </motion.button>
-      </animated.div>
-      <div className="flex justify-between items-center w-full px-10 mb-10">
-        <motion.img 
-          src="https://raw.githubusercontent.com/nayanpunmiya/nayanpunmiya/refs/heads/main/Make%20your%20README.png" 
-          alt="Left Image" 
-          className="w-96 h-auto" 
-          initial={{ x: -100, opacity: 0, rotate: -10 }} 
-          animate={{ x: 0, opacity: 1, rotate: 0 }} 
-          transition={{ duration: 1, ease: "easeOut" }} 
-          whileHover={{ scale: 1.1, rotate: -5 }}
-        />
-        <motion.img 
-          src="https://user-images.githubusercontent.com/55389276/140866485-8fb1c876-9a8f-4d6a-98dc-08c4981eaf70.gif" 
-          alt="Right Image" 
-          className="w-96 h-auto" 
-          initial={{ x: 100, opacity: 0, rotate: 10 }} 
-          animate={{ x: 0, opacity: 1, rotate: 0 }} 
-          transition={{ duration: 1, ease: "easeOut" }} 
-          whileHover={{ scale: 1.1, rotate: 5 }}
-        />
-      </div>
+const Home = ({ darkMode }) => (
+  <div className={`min-h-screen pt-16 flex flex-col items-center justify-center ${darkMode ? 'bg-gradient-to-b from-gray-900 via-purple-900 to-violet-900' : 'bg-gradient-to-b from-blue-400 via-teal-400 to-green-400'}`}>
+    <div className="w-full text-center p-10">
+      <motion.h1 
+        className={`text-6xl font-bold mb-4 ${darkMode ? 'text-indigo-300' : 'text-white'}`}
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        Welcome to Nayan Punamiya's Portfolio
+      </motion.h1>
+      <motion.p 
+        className="text-2xl mb-6 text-gray-300"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+      >
+        Full Stack Web Developer | Machine Learning Enthusiast
+      </motion.p>
+      <motion.button 
+        whileHover={{ scale: 1.1, boxShadow: "0px 0px 8px rgb(255,255,255)" }}
+        whileTap={{ scale: 0.9 }}
+        className={`px-8 py-3 rounded-full transition-colors text-lg font-semibold mb-8 ${darkMode ? 'bg-indigo-600 hover:bg-indigo-700 text-white' : 'bg-white hover:bg-gray-100 text-indigo-600'}`}
+      >
+        <a href="https://docs.google.com/document/d/1uV_ryzX6iFNzNmzoLJAKX8ryRTguhr2d/edit?usp=drive_link&ouid=104814200948522809032&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Download Resume</a>
+      </motion.button>
     </div>
-  );
-};
+    <div className="flex flex-col md:flex-row justify-center items-center space-x-4">
+      <motion.img 
+        src="https://raw.githubusercontent.com/nayanpunmiya/nayanpunmiya/refs/heads/main/Make%20your%20README.png" 
+        alt="Left Image" 
+        className="w-full md:w-1/2 h-auto mb-4 md:mb-0" 
+        initial={{ x: -100, opacity: 0, rotate: -10 }} 
+        animate={{ x: 0, opacity: 1, rotate: 0 }} 
+        transition={{ duration: 1, ease: "easeOut" }} 
+        whileHover={{ scale: 1.1, rotate: -5 }}
+      />
+      <motion.img 
+        src="https://user-images.githubusercontent.com/55389276/140866485-8fb1c876-9a8f-4d6a-98dc-08c4981eaf70.gif" 
+        alt="Right Image" 
+        className="w-full md:w-1/2 h-auto" 
+        initial={{ x: 100, opacity: 0, rotate: 10 }} 
+        animate={{ x: 0, opacity: 1, rotate: 0 }} 
+        transition={{ duration: 1, ease: "easeOut" }} 
+        whileHover={{ scale: 1.1, rotate: 5 }}
+      />
+    </div>
+  </div>
+);
 
 // Education Component
 const Education = ({ darkMode }) => (
@@ -222,7 +209,7 @@ const Skills = ({ darkMode }) => {
               ))}
             </ul>
           </motion.div>
-        ))} 
+        ))}
       </motion.div>
     </div>
   );
@@ -252,6 +239,7 @@ const Experience = ({ darkMode }) => (
   </div>
 );
 
+// Projects Component
 const Projects = ({ darkMode }) => {
   const projects = [
     { 
@@ -293,12 +281,9 @@ const Projects = ({ darkMode }) => {
   );
 };
 
-
-
-
+// Blog Component
 const Blog = ({ darkMode }) => {
   const [posts, setPosts] = useState(() => {
-    // Retrieve stored posts from localStorage if available
     const storedPosts = localStorage.getItem('posts');
     return storedPosts ? JSON.parse(storedPosts) : [
       { id: 1, title: "The Future of AI in Cryptocurrency", content: "Exploring the transformative impact of AI on cryptocurrency trading and security." },
@@ -308,7 +293,6 @@ const Blog = ({ darkMode }) => {
 
   const [newPost, setNewPost] = useState({ title: "", content: "" });
 
-  // Persist posts to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem('posts', JSON.stringify(posts));
   }, [posts]);
@@ -322,9 +306,9 @@ const Blog = ({ darkMode }) => {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(3); // Show 3 posts per page
+  const [postsPerPage] = useState(3);
 
-  const paginatedPosts = useMemo(() => {
+    const paginatedPosts = useMemo(() => {
     const startIndex = (currentPage - 1) * postsPerPage;
     const endIndex = startIndex + postsPerPage;
     return posts.slice(startIndex, endIndex);
@@ -336,10 +320,8 @@ const Blog = ({ darkMode }) => {
 
   return (
     <div className={`p-10 pt-20 ${darkMode ? 'bg-gray-800 text-white' : 'bg-gradient-to-b from-gray-100 to-gray-300'}`}>
-      {/* Blog Section */}
       <h2 className={`text-4xl font-bold mb-6 text-center ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Blog</h2>
 
-      {/* Blog Form */}
       <motion.form 
         className="mb-6" 
         onSubmit={handleSubmit}
@@ -369,8 +351,7 @@ const Blog = ({ darkMode }) => {
           Add Post
         </motion.button>
       </motion.form>
-      
-      {/* Blog Posts */}
+
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -399,9 +380,9 @@ const Blog = ({ darkMode }) => {
         >
           Previous
         </button>
-        
+
         <span className={`mx-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{currentPage}</span>
-        
+
         <button
           className={`px-4 py-2 mx-2 rounded-md ${darkMode ? 'bg-blue-600 text-white' : 'bg-blue-500 text-white'} hover:bg-blue-600`} 
           onClick={() => handlePageChange(currentPage + 1)} 
@@ -413,13 +394,6 @@ const Blog = ({ darkMode }) => {
     </div>
   );
 };
-
-
-
-
-
-    
-
 
 // Main App Component
 const App = () => {
@@ -448,3 +422,4 @@ const App = () => {
 };
 
 export default App;
+
