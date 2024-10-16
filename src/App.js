@@ -118,12 +118,12 @@ const Home = ({ darkMode }) => (
       </motion.button>
     </div>
 
-    {/* Updated image layout */}
-    <div className="flex flex-col md:flex-row justify-center items-center space-x-4">
+    {/* Ensure proper flex layout */}
+    <div className="flex flex-col md:flex-row justify-center items-center w-full px-4 space-y-4 md:space-y-0 md:space-x-4">
       <motion.img 
         src="https://raw.githubusercontent.com/nayanpunmiya/nayanpunmiya/refs/heads/main/Make%20your%20README.png" 
         alt="First Image" 
-        className="w-full md:w-1/2 h-auto mb-4 md:mb-0" 
+        className="w-full md:w-1/2 h-auto" 
         initial={{ x: -100, opacity: 0, rotate: -10 }} 
         animate={{ x: 0, opacity: 1, rotate: 0 }} 
         transition={{ duration: 1, ease: "easeOut" }} 
@@ -141,6 +141,7 @@ const Home = ({ darkMode }) => (
     </div>
   </div>
 );
+
 
 
 
