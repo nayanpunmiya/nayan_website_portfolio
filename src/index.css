@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --navbar-height: 4rem;
+  --navbar-height: 4rem; /* Default height for navbar */
   --vh: 100%;
 }
 
@@ -23,7 +23,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   height: calc(var(--vh, 1vh) * 100);
-  padding-top: var(--navbar-height); /* Ensure body content is pushed below the navbar */
+  padding-top: 4rem; /* Ensures content is below the navbar */
+}
+
+/* Fix for mobile browsers viewport resizing */
+@media (max-width: 768px) {
+  body {
+    padding-top: 4rem; /* Add space for the navbar */
+  }
 }
 
 /* Responsive container */
@@ -53,6 +60,12 @@ h1, h2, h3, p {
   }
 }
 
+/* Ensure images scale properly */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Layout adjustments for smaller screens */
 @media (max-width: 1024px) {
   .grid {
@@ -67,12 +80,6 @@ h1, h2, h3, p {
     max-width: 90%;
     height: auto;
   }
-}
-
-/* Ensure images scale properly */
-img {
-  max-width: 100%;
-  height: auto;
 }
 
 /* Improve navigation on small screens */
@@ -124,4 +131,23 @@ img {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Flexbox adjustments for image layouts */
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .flex-container {
+    flex-direction: row;
+  }
+}
+
+/* Padding for content below navbar */
+main {
+  padding-top: 4rem; /* Ensure all content below navbar has space */
 }
