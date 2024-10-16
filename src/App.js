@@ -4,38 +4,81 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun, FaRocket, FaLightbulb, FaCode, FaBriefcase, FaNewspaper } from 'react-icons/fa';
 
 // Navbar Component
-const Navbar = ({ darkMode, toggleDarkMode }) => (
-  <motion.nav 
-    className={`${darkMode ? 'bg-gradient-to-r from-purple-900 to-indigo-900' : 'bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500'} p-4 text-white fixed w-full z-50`}
-    initial={{ y: -100 }}
-    animate={{ y: 0 }}
-    transition={{ type: 'spring', stiffness: 120 }}
-  >
-    <ul className="flex justify-center items-center space-x-6">
-      <NavItem to="/" icon={<FaRocket />}>Home</NavItem>
-      <NavItem to="/education" icon={<FaLightbulb />}>Education</NavItem>
-      <NavItem to="/skills" icon={<FaCode />}>Skills</NavItem>
-      <NavItem to="/experience" icon={<FaBriefcase />}>Experience</NavItem>
-      <NavItem to="/projects" icon={<FaRocket />}>Projects</NavItem>
-      <NavItem to="/blog" icon={<FaNewspaper />}>Blog</NavItem>
-      <li>
-        <motion.button 
-          onClick={toggleDarkMode} 
-          className="p-2 rounded-full hover:bg-opacity-50 bg-white bg-opacity-20 transition-colors"
-          whileHover={{ scale: 1.2, rotate: 180 }}
-          whileTap={{ scale: 0.8 }}
-        >
-          {darkMode ? <FaSun className="text-yellow-300" /> : <FaMoon className="text-purple-300" />}
-        </motion.button>
-      </li>
-    </ul>
-  </motion.nav>
-);
 
-const NavItem = ({ to, icon, children }) => (
-  <li>
-    <Link to={to} className="flex items-center hover:text-yellow-300 transition-colors">
-      <motion.span 
+
+const Navbar = ({ darkMode, toggleDarkMode }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <nav className={`fixed w-full z-50 ${darkMode ? 'bg-gradient-to-r from-purple-900 to-indigo-900' : 'bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500'} p-4`}>
+      <div className="flex items-center justify-between">
+        {/* Navbar brand or title */}
+        <div className="text-white text-2xl font-bold">
+          Portfolio
+        </div>
+
+        {/* Hamburger Menu Icon */}
+        <button
+          className="md:hidden text-white focus:outline-none"
+          onClick={toggleMenu}
+        >
+          {isOpen ? <FaTimes size={28} /> : <FaBars size={28} />}
+        </button>
+
+        {/* Full menu for larger screens */}
+        <ul className="hidden md:flex space-x-6 items-center">
+          <NavItem to="/" icon={<FaRocket />}>Home</NavItem>
+          <NavItem to="/education" icon={<FaLightbulb />}>Education</NavItem>
+          <NavItem to="/skills" icon={<FaCode />}>Skills</NavItem>
+          <NavItem to="/experience" icon={<FaBriefcase />}>Experience</NavItem>
+          <NavItem to="/projects" icon={<FaRocket />}>Projects</NavItem>
+          <NavItem to="/blog" icon={<FaNewspaper />}>Blog</NavItem>
+          <li>
+            <motion.button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-full hover:bg-opacity-50 bg-white bg-opacity-20 transition-colors"
+              whileHover={{ scale: 1.2, rotate: 180 }}
+              whileTap={{ scale: 0.8 }}
+            >
+              {darkMode ? <FaSun className="text-yellow-300" /> : <FaMoon className="text-purple-300" />}
+            </motion.button>
+          </li>
+        </ul>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} mt-4`}>
+        <ul className="flex flex-col items-center space-y-4">
+          <NavItem to="/" icon={<FaRocket />} onClick={toggleMenu}>Home</NavItem>
+          <NavItem to="/education" icon={<FaLightbulb />} onClick={toggleMenu}>Education</NavItem>
+          <NavItem to="/skills" icon={<FaCode />} onClick={toggleMenu}>Skills</NavItem>
+          <NavItem to="/experience" icon={<FaBriefcase />} onClick={toggleMenu}>Experience</NavItem>
+          <NavItem to="/projects" icon={<FaRocket />} onClick={toggleMenu}>Projects</NavItem>
+          <NavItem to="/blog" icon={<FaNewspaper />} onClick={toggleMenu}>Blog</NavItem>
+          <li>
+            <motion.button
+              onClick={toggleDarkMode}
+              className="p-2 rounded-full hover:bg-opacity-50 bg-white bg-opacity-20 transition-colors"
+              whileHover={{ scale: 1.2, rotate: 180 }}
+              whileTap={{ scale: 0.8 }}
+            >
+              {darkMode ? <FaSun className="text-yellow-300" /> : <FaMoon className="text-purple-300" />}
+            </motion.button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
+
+const NavItem = ({ to, icon, children, onClick }) => (
+  <li onClick={onClick}>
+    <Link to={to} className="flex items-center text-white hover:text-yellow-300 transition-colors">
+      <motion.span
         className="mr-2"
         whileHover={{ rotate: 360, scale: 1.2 }}
         transition={{ duration: 0.3 }}
@@ -51,6 +94,9 @@ const NavItem = ({ to, icon, children }) => (
     </Link>
   </li>
 );
+
+
+
 
 // Footer Component
 const Footer = ({ darkMode }) => (
