@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
 :root {
   --navbar-height: 4rem;
+  --vh: 100%;
 }
 
 /* Reset default styles */
@@ -22,11 +22,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  height: calc(var(--vh, 1vh) * 100);
 }
 
 /* Responsive container */
@@ -36,7 +32,43 @@ code {
   padding: 0 1rem;
 }
 
-/* Navigation responsiveness */
+/* Typography responsiveness */
+h1, h2, h3, p {
+  word-wrap: break-word;
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.75rem !important;
+  }
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  h3 {
+    font-size: 1.25rem !important;
+  }
+  p {
+    font-size: 1rem !important;
+  }
+}
+
+/* Layout adjustments for smaller screens */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .flex-container {
+    flex-direction: column !important;
+  }
+
+  img {
+    max-width: 90%;
+    height: auto;
+  }
+}
+
+/* Improve navigation on small screens */
 @media (max-width: 768px) {
   nav ul {
     flex-direction: column;
@@ -49,71 +81,12 @@ code {
   }
 }
 
-/* Typography responsiveness */
-@media (max-width: 640px) {
-  h1 {
-    font-size: 2rem !important;
-  }
-  
-  h2 {
-    font-size: 1.75rem !important;
-  }
-  
-  h3 {
-    font-size: 1.5rem !important;
-  }
-  
-  p {
-    font-size: 1rem !important;
-  }
-}
-
-/* Layout adjustments for different screen sizes */
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr !important;
-  }
-  
-  .flex-container {
-    flex-direction: column !important;
-  }
-}
-
-/* Image responsiveness */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Form elements responsiveness */
-@media (max-width: 640px) {
-  input, 
-  textarea, 
-  button {
-    width: 100% !important;
-    margin-bottom: 1rem;
-  }
-}
-
-/* Project cards responsiveness */
-@media (max-width: 768px) {
-  .project-card {
-    margin: 1rem 0;
-  }
-}
-
-/* Footer responsiveness */
+/* Responsive footer */
 @media (max-width: 640px) {
   footer {
     padding: 2rem 1rem;
   }
-  
+
   .social-links {
     flex-wrap: wrap;
     justify-content: center;
@@ -130,7 +103,7 @@ img {
   .m-responsive {
     margin: 0.5rem !important;
   }
-  
+
   .p-responsive {
     padding: 0.5rem !important;
   }
