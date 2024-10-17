@@ -1,12 +1,16 @@
-/* index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   --navbar-height: 4rem;
+  --primary-dark: #1a1a1a;
+  --primary-light: #ffffff;
+  --accent-color: #3B82F6;
+  --transition-speed: 0.3s;
 }
 
+/* Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -21,15 +25,137 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
+/* Container Styles */
 .container {
   width: 100%;
   padding: 0 1rem;
   margin: 0 auto;
 }
 
-/* Mobile-first responsive design */
+/* Navigation Styles */
+.nav-link {
+  @apply flex items-center space-x-2 text-white hover:text-yellow-300 transition-colors py-2;
+}
+
+.nav-icon {
+  @apply w-5 h-5;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+  transform: translateX(100%);
+  transition: transform var(--transition-speed) ease-in-out;
+}
+
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+.menu-overlay {
+  backdrop-filter: blur(4px);
+}
+
+/* Component Styles */
+.card {
+  @apply rounded-lg shadow-lg transition-all duration-300;
+}
+
+.card:hover {
+  @apply shadow-xl transform scale-105;
+}
+
+/* Button Styles */
+.btn {
+  @apply px-6 py-2 rounded-full transition-all duration-300;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-800 hover:bg-gray-300;
+}
+
+/* Form Styles */
+.input-field {
+  @apply w-full p-2 rounded border transition-colors duration-200;
+}
+
+.input-field:focus {
+  @apply outline-none border-blue-500;
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Dark Mode Styles */
+.dark {
+  @apply bg-gray-900 text-white;
+}
+
+.dark .card {
+  @apply bg-gray-800;
+}
+
+.dark .input-field {
+  @apply bg-gray-700 border-gray-600 text-white;
+}
+
+/* Responsive Typography */
+h1 {
+  @apply text-3xl md:text-4xl lg:text-6xl font-bold;
+}
+
+h2 {
+  @apply text-2xl md:text-3xl lg:text-4xl font-bold;
+}
+
+h3 {
+  @apply text-xl md:text-2xl lg:text-3xl font-semibold;
+}
+
+p {
+  @apply text-base md:text-lg;
+}
+
+/* Grid Layouts */
+.grid-container {
+  @apply grid gap-6;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Media Queries */
 @media (min-width: 640px) {
   .container {
     max-width: 640px;
@@ -40,6 +166,10 @@ body {
   .container {
     max-width: 768px;
   }
+  
+  .nav-container {
+    padding-top: 0;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -48,50 +178,13 @@ body {
   }
 }
 
-/* Navigation styles */
-.nav-link {
-  @apply flex items-center hover:text-yellow-300 transition-colors;
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
 }
 
-/* Mobile menu styles */
-.mobile-menu {
-  transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
-}
-
-.mobile-menu.open {
-  transform: translateX(0);
-}
-
-/* Responsive typography */
-h1 {
-  @apply text-3xl md:text-4xl lg:text-6xl;
-}
-
-h2 {
-  @apply text-2xl md:text-3xl lg:text-4xl;
-}
-
-h3 {
-  @apply text-xl md:text-2xl lg:text-3xl;
-}
-
-p {
-  @apply text-base md:text-lg;
-}
-
-/* Image responsiveness */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Dark mode transitions */
-.dark-mode-transition {
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-/* Animation performance optimization */
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -101,13 +194,54 @@ img {
   }
 }
 
-/* Additional responsive adjustments */
-@media (max-width: 768px) {
-  .nav-container {
-    padding-top: var(--navbar-height);
-  }
-  
-  .content-wrapper {
-    margin-top: var(--navbar-height);
-  }
+/* Project Card Specific Styles */
+.project-card {
+  @apply p-6 rounded-lg shadow-lg transition-all duration-300;
+}
+
+.project-card:hover {
+  @apply transform scale-105;
+}
+
+.project-tag {
+  @apply px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800;
+}
+
+/* Blog Post Styles */
+.blog-post {
+  @apply mb-8 p-6 rounded-lg shadow-lg;
+}
+
+.blog-title {
+  @apply text-2xl font-bold mb-4;
+}
+
+.blog-content {
+  @apply text-gray-600 dark:text-gray-300;
+}
+
+/* Footer Styles */
+.footer {
+  @apply mt-auto py-8;
+}
+
+.social-link {
+  @apply transition-transform duration-300 hover:scale-110;
+}
+
+/* Utility Classes */
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.absolute-center {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
 }
