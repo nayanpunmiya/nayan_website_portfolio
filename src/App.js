@@ -116,14 +116,20 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
       </AnimatePresence>
     </>
   );
-          
-      
-  
+};
 
+const SocialLink = ({ href, icon, color }) => (
+  <motion.a 
+    href={href} 
+    target="_blank" 
+    rel="noopener noreferrer"
+    whileHover={{ scale: 1.2, rotate: 360 }}
+    className={color}
+  >
+    {icon}
+  </motion.a>
+);
 
-
-
-// Footer Component
 const Footer = ({ darkMode }) => (
   <footer className={`${darkMode ? 'bg-gradient-to-r from-gray-900 to-black' : 'bg-gradient-to-r from-purple-600 to-blue-600'} text-white p-6 text-center w-full`}>
     <div className="flex justify-center space-x-6 mb-4">
@@ -148,19 +154,6 @@ const Footer = ({ darkMode }) => (
   </footer>
 );
 
-const SocialLink = ({ href, icon, color }) => (
-  <motion.a 
-    href={href} 
-    target="_blank" 
-    rel="noopener noreferrer"
-    whileHover={{ scale: 1.2, rotate: 360 }}
-    className={color}
-  >
-    {icon}
-  </motion.a>
-);
-
-// Home Component
 const Home = ({ darkMode }) => {
   const springProps = useSpring({
     from: { opacity: 0, transform: 'translateY(50px)' },
@@ -175,7 +168,6 @@ const Home = ({ darkMode }) => {
           {/* Header content remains the same */}
         </animated.div>
 
-        {/* Updated Images Container */}
         <div className="flex flex-col gap-6 items-center mb-10 px-4">
           <motion.div 
             className="w-full max-w-md"
@@ -206,11 +198,7 @@ const Home = ({ darkMode }) => {
       </div>
     </div>
   );
-
-         
-
-
-
+};
 
 // Education Component
 const Education = ({ darkMode }) => (
@@ -494,4 +482,7 @@ const App = () => {
 };
 
 export default App;
+
+
+       
 
